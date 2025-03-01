@@ -1,0 +1,10 @@
+{
+  "name": "jekyll-workflow",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "jekyll serve --livereload --config _config.yml,_config_dev.yml",
+    "build": "jekyll b",
+    "deploy": "jekyll b && rsync -avz --delete --include='*.htaccess' _site/ user@server.com:path/to/public_html/",
+    "backup": "7z a -t7z -mx=9 -m0=LZMA2 -mmt=on -xr\\!_site \"../$(basename \"$PWD\")-$(date +%d-%m-%Y).7z\" ."
+  }
+}

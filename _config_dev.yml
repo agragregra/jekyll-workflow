@@ -1,0 +1,11 @@
+exclude: [
+
+  '**/*.DS_Store',
+  '**/Thumbs.db',
+  'package.json',
+  'readme.md',
+
+  'public/files', # from dev
+  'public/demos', # from dev
+
+]
