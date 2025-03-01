@@ -1,19 +1,10 @@
 exclude: [
+  'public/files', # from dev
+  'public/demos', # from dev
 
   '**/*.DS_Store',
   '**/Thumbs.db',
   'package.json',
   'readme.md',
-
-  "scripts/*.*",
-
-  'public/files', # from dev
-  'public/demos', # from dev
-
-]
-
-include: [
-
-  'scripts/bundle.js',
-
+  'scripts/*',
 ]

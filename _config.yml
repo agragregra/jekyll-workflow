@@ -1,30 +1,27 @@
 baseurl: 
 url: 
 
-disable_disk_cache: true
+include: [
+  'scripts/dist/main.bundle.js',
+  'scripts/dist/second.bundle.js',
 
-source: src
-destination: dist
-includes_dir: _parts
+  '.htaccess',
+]
+
+exclude: [
+  '**/*.DS_Store',
+  '**/Thumbs.db',
+  'package.json',
+  'readme.md',
+  'scripts/*',
+]
 
 sass:
   style: compressed
   sourcemap: never
 
-exclude: [
+source: src
+destination: dist
+includes_dir: _parts
 
-  '**/*.DS_Store',
-  '**/Thumbs.db',
-  'package.json',
-  'readme.md',
-
-  "scripts/*.*",
-
-]
-
-include: [
-
-  'scripts/bundle.js',
-  '.htaccess',
-
-]
+disable_disk_cache: true

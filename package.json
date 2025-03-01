@@ -2,10 +2,10 @@
   "name": "jekyll-workflow",
   "version": "1.0.0",
   "scripts": {
-    "dev": "jekyll serve --watch --livereload --config _config.yml,_config_dev.yml & esbuild src/scripts/main.js --bundle --outfile=src/scripts/bundle.js --minify --watch",
+    "dev": "jekyll serve --watch --livereload --config _config.yml,_config_dev.yml & esbuild src/scripts/*.js --bundle --outdir=src/scripts/dist/ --entry-names=[name].bundle --minify --watch",
     "build": "jekyll b",
     "deploy": "jekyll b && rsync -avz --delete --include='*.htaccess' dist/ user@server.com:path/to/public_html/",
-    "backup": "7z a -t7z -mx=9 -m0=LZMA2 -mmt=on -x!dist -x!node_modules \"./$(basename \"$PWD\")-$(date +%d-%m-%Y).7z\" \"$PWD\"",
+    "backup": "7z a -t7z -mx=9 -m0=LZMA2 -mmt=on -x!\"$(basename \"$PWD\")/dist\" -x!\"$(basename \"$PWD\")/node_modules\" \"./$(basename \"$PWD\")-$(date +%d-%m-%Y).7z\" \"$PWD\"",
     "preview": "jekyll serve --no-watch --host=192.168.1.126 --port=3000"
   }
 }
