@@ -40,6 +40,8 @@ sudo gem i jekyll bundler
 sudo npm i -g esbuild
 # or
 sudo apt install esbuild
+# for mac
+brew install esbuild
 ```
 
 4. Install 7z for backup:
