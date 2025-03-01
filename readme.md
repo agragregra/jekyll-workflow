@@ -11,7 +11,7 @@ git clone https://github.com/agragregra/jw .; rm -rf trunk readme.md .git
 - ```npm run build```: Builds the project for production.
 - ```npm run deploy```: Deploys the project to the server using rsync.
 - ```npm run backup```: Backup the project. Format: ```projectname-day-month-year.7z```.
-- ```npm run preview```: Provide External server address like ```http://192.168.1.126:4000```.
+- ```npm run preview```: Provide external server address like ```http://192.168.1.126:4000```.
 
 ## Features
 
