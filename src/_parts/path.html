@@ -1,0 +1,2 @@
+{% assign levels = page.url | split: '/' | size | minus: 1 -%}
+{% capture path %}{% for i in (1..levels) %}../{% endfor %}{% endcapture -%}

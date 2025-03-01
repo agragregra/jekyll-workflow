@@ -1,0 +1,30 @@
+---
+title: Hello World!
+---
+{% include path.html -%}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Document</title>
+  <meta name="description" content="Jekyll Workflow">
+
+  <link rel="icon" href="{{ path }}assets/images/favicon.png">
+  <meta property="og:image" content="{{ path }}public/images/preview.jpg">
+
+  <link rel="stylesheet" href="{{ path }}styles/index.css">
+  <script src="{{ path }}scripts/bundle.js" defer></script>
+
+</head>
+
+<body>
+
+  <h1>{{ page.title }}</h1>
+
+</body>
+</html>

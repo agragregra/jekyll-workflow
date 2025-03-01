@@ -1,6 +1,15 @@
-host: 192.168.1.126 # local network access
+baseurl: 
+url: 
 
 disable_disk_cache: true
+
+source: src
+destination: dist
+includes_dir: _parts
+
+sass:
+  style: compressed
+  sourcemap: never
 
 exclude: [
 
@@ -9,10 +18,13 @@ exclude: [
   'package.json',
   'readme.md',
 
+  "scripts/*.*",
+
 ]
 
 include: [
 
+  'scripts/bundle.js',
   '.htaccess',
 
 ]
