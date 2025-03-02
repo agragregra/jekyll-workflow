@@ -2,8 +2,8 @@ baseurl:
 url: 
 
 include: [
-  'scripts/dist/main.bundle.js',
-  'scripts/dist/second.bundle.js',
+  'scripts/dist/main.js',
+  'scripts/dist/second.js',
 
   '.htaccess',
 ]
