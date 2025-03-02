@@ -50,6 +50,6 @@ sudo apt install p7zip-full
 brew install p7zip
 ```
 
----
+***
 
 > Note: Disable ad blocker to improve performance.
