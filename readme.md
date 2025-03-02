@@ -49,3 +49,5 @@ sudo apt install p7zip-full
 # for mac
 brew install p7zip
 ```
+
+> Note: Disable ad blocker to improve performance.
