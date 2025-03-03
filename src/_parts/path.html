@@ -1,2 +1,9 @@
-{% assign levels = page.url | split: '/' | size | minus: 1 -%}
-{% capture path %}{% for i in (1..levels) %}../{% endfor %}{% endcapture -%}
+{%- assign url_parts = page.url | split: '/' -%}
+{%- if url_parts.last == '' -%}
+  {%- assign levels = url_parts.size | minus: 2 -%}
+{%- else -%}
+  {%- assign levels = url_parts.size | minus: 1 -%}
+{%- endif -%}
+{%- capture path -%}
+  {%- for i in (1..levels) -%}../{%- endfor -%}
+{%- endcapture -%}

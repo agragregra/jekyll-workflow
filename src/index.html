@@ -17,9 +17,9 @@ title: Hello World!
   <link rel="icon" href="{{ path }}assets/images/favicon.png">
   <meta property="og:image" content="{{ path }}public/images/preview.jpg">
 
-  <link rel="stylesheet" href="{{ path }}styles/index.css">
-  <script src="{{ path }}scripts/dist/main.js" defer></script>
-  <script src="{{ path }}scripts/dist/second.js" defer></script>
+  <link rel="stylesheet" href="{{ path }}styles/index.css?v={{ site.v }}">
+  <script src="{{ path }}scripts/dist/main.js?v={{ site.v }}" defer></script>
+  <script src="{{ path }}scripts/dist/second.js?v={{ site.v }}" defer></script>
 
 </head>
 
