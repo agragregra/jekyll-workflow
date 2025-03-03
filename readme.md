@@ -12,6 +12,7 @@ git clone https://github.com/agragregra/jw .; rm -rf trunk readme.md .git
 - ```npm run deploy```: Deploys the project to the server using ```rsync```.
 - ```npm run backup```: Backup the project. Format: ```foldername-dd-mm-yyyy.7z```. ```dist``` and ```node_modules``` excluded.
 - ```npm run preview```: Run external server address ```http://192.168.1.126:3000```.
+- ```npm run watch```: Just watch and rebuild without server up.
 
 ## Features
 
