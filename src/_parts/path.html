@@ -1,9 +1,4 @@
-{%- assign url_parts = page.url | split: '/' -%}
-{%- if url_parts.last == '' -%}
-  {%- assign levels = url_parts.size | minus: 2 -%}
-{%- else -%}
-  {%- assign levels = url_parts.size | minus: 1 -%}
-{%- endif -%}
-{%- capture path -%}
-  {%- for i in (1..levels) -%}../{%- endfor -%}
-{%- endcapture -%}
+{% assign path = '' %}
+{% assign tempDepth = page.url | append: 'path' | split: '/' | size | minus: 2 %}
+{% for i in (1..tempDepth) %}{% assign path = path | append: "../" %}{% endfor %}
+{% if path == '' %}{% assign path = './' %}{% endif %}
