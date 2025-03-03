@@ -24,6 +24,5 @@ sass:
 
 source: src
 destination: dist
-includes_dir: _parts
 
 disable_disk_cache: true
