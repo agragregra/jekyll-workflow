@@ -54,6 +54,7 @@ mkdir -p ~/bin && curl -o ~/bin/7z.exe https://www.7-zip.org/a/7zr.exe
 ```
 
 4. Install rsync for Git Bash (deploy)
+
 ```mkdir -p ~/bin && curl -o ~/bin/rsync.exe https://raw.githubusercontent.com/agragregra/rw/main/rsync.exe```
 > For macOS, Linux, etc., no installation is required.
 
