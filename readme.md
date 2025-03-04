@@ -49,6 +49,8 @@ brew install esbuild
 sudo apt install p7zip-full
 # for mac
 brew install p7zip
+# for git bash
+mkdir -p ~/bin && curl -o ~/bin/7z.exe https://www.7-zip.org/a/7zr.exe
 ```
 
 ---
