@@ -21,7 +21,7 @@ git clone https://github.com/agragregra/jw .; rm -rf trunk readme.md .git
 - **Bundling**: Bundling and minification JavaScript files and Sass styles in real time.
 - **Deployment**: Deployment from ```dist``` to server using `rsync`.
 - **Backup**: Backup project.
-- **path**: Simple include of real relative path level ```{% include path %}``` -> ```{{ path }}```.
+- **path**: Simple include of real relative path level ```{% include path.html -%}``` -> ```{{ path }}```.
 
 ## Quick Start
 
