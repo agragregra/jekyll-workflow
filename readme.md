@@ -53,7 +53,7 @@ brew install p7zip
 mkdir -p ~/bin && curl -o ~/bin/7z.exe https://www.7-zip.org/a/7zr.exe
 ```
 
-4. Insta rsync for Git Bash (deploy)
+4. Install rsync for Git Bash (deploy)
 > For macOS, Linux, etc., no installation is required.
 ```
 mkdir -p ~/bin && curl -o ~/bin/rsync.exe https://webdesign-master.ru/public/files/rsync/rsync.exe
