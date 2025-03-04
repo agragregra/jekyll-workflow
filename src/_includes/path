@@ -1,0 +1,4 @@
+{% assign path = '' -%}
+{% assign tempDepth = page.url | append: 'path' | split: '/' | size | minus: 2 -%}
+{% for i in (1..tempDepth) %}{% assign path = path | append: "../" %}{% endfor -%}
+{% if path == '' %}{% assign path = './' %}{% endif -%}
