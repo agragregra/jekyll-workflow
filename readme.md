@@ -4,15 +4,8 @@ Ready-to-use workflow for quickly starting with Jekyll, Sass and esbuild. It inc
 
 ```
 git clone https://github.com/agragregra/jw .; rm -rf trunk readme.md .git
+chmod +x run.sh
 ```
-
-### Available commands
-- ```npm run dev```: Run development server ```http://127.0.0.1:4000``` with rebuilding and LiveReload.
-- ```npm run build```: Builds the project for production.
-- ```npm run deploy```: Deploys the project to the server using ```rsync```.
-- ```npm run backup```: Backup the project. Format: ```foldername-dd-mm-yyyy.7z```. ```dist``` and ```node_modules``` excluded.
-- ```npm run preview```: Run external server address ```http://192.168.1.126:3000```.
-- ```npm run watch```: Just watch and rebuild without server up.
 
 ## Features
 
@@ -22,10 +15,25 @@ git clone https://github.com/agragregra/jw .; rm -rf trunk readme.md .git
 - **Deployment**: Deployment from ```dist``` to server using `rsync`.
 - **Backup**: Backup project.
 - **path**: Simple include of real relative path level ```{% include path.html -%}``` -> ```{{ path }}```.
+- **Docker**: Has a docker docker-compose.yml file with official jekyll image.
 
 ## Quick Start
 
-### Installing dependencies
+### Use in Docker
+```
+docker-compose up -d && docker-compose exec jekyll sh
+# ./run.sh argument
+```
+
+### Available commands
+- ```./run.sh dev```: Run development server ```http://127.0.0.1:4000``` with rebuilding and LiveReload (technical: 0.0.0.0).
+- ```./run.sh build```: Builds the project for production.
+- ```./run.sh deploy```: Deploys the project to the server using ```rsync```.
+- ```./run.sh backup```: Backup the project. Format: ```foldername-dd-mm-yyyy.7z```. ```dist``` and ```node_modules``` excluded.
+- ```./run.sh preview```: Run external server address ```http://192.168.1.126:3000```.
+- ```./run.sh watch```: Just watch and rebuild without server up.
+
+### Installing dependencies (traditional)
 
 1. Make sure you have the following installed:
    - [Ruby](https://www.ruby-lang.org/) (for Jekyll)
@@ -53,8 +61,7 @@ brew install p7zip
 mkdir -p ~/bin && curl -o ~/bin/7z.exe https://www.7-zip.org/a/7zr.exe
 ```
 
-4. Install rsync for Git Bash (deploy)
-
+5. Install rsync for Git Bash (deploy)
 ```mkdir -p ~/bin && curl -o ~/bin/rsync.exe https://raw.githubusercontent.com/agragregra/rw/main/rsync.exe```
 > For macOS, Linux, etc., no installation is required.
 

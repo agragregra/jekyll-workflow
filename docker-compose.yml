@@ -1,0 +1,16 @@
+services:
+  jekyll:
+    image: jekyll/jekyll:4
+    environment:
+      gem: webrick
+      apk: p7zip rsync
+    ports:
+      - "4000:4000"
+      - "35729:35729"
+    volumes:
+      - .:/srv/jekyll
+    command: >
+      sh -c "npm install -g esbuild &&
+             gem install $$gem &&
+             apk add $$apk &&
+             tail -f /dev/null"
