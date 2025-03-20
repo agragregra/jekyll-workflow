@@ -6,12 +6,12 @@ set -e  # Exit on error
 # Configuration variables
 output_dir="dist/"
 deploy_server="user@server.com:path/to/public_html/"
+rsync_options="-avz --delete --include='*.htaccess'"
 jekyll_config="_config.yml,_config_dev.yml"
 js_source_dir="src/scripts/*.js"
 js_output_dir="src/scripts/dist/"
 preview_host="192.168.1.126"
 preview_port="3000"
-rsync_options="-avz --delete --include='*.htaccess'"
 backup_compression_options="-t7z -mx=9 -m0=LZMA2 -mmt=on"
 backup_date_format="+%d-%m-%Y"
 
@@ -64,6 +64,7 @@ build() {
 
 deploy() {
   check_deps "jekyll" "esbuild" "rsync"
+  jekyll clean
   build_js
   build_jekyll
   rsync $rsync_options $output_dir $deploy_server
