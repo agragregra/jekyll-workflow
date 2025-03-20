@@ -14,8 +14,8 @@ chmod +x run.sh && chmod -R 777 .
 - **Bundling**: Bundling and minification JavaScript files and Sass styles in real time.
 - **Deployment**: Deployment from ```dist``` to server using `rsync`.
 - **Backup**: Backup project.
-- **path**: Simple include of real relative path level ```{% include path.html -%}``` -> ```{{ path }}```.
 - **Docker**: Has a docker docker-compose.yml file with official jekyll image.
+- **path**: Simple include of real relative path level ```{% include path.html -%}``` -> ```{{ path }}```.
 
 ## Quick Start
 
