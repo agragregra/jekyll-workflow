@@ -4,14 +4,14 @@ services:
     environment:
       upd: 4.4.1
       gem: jekyll-paginate-v2
-      apk: p7zip rsync
+      apk: p7zip rsync nano
       npm: esbuild
     ports:
       - "4000:4000"
       - "35729:35729"
     volumes:
       - .:/srv/jekyll
-      - ./system/:/root/
+      - ./sys/:/root/
     command: >
       sh -c "apk update && apk add $$apk &&
              gem i jekyll -v $$upd --force &&
