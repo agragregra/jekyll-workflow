@@ -11,7 +11,7 @@ services:
       - "35729:35729"
     volumes:
       - .:/srv/jekyll
-      - ./sys/:/root/
+      - ./system/:/root/
     command: >
       sh -c "apk update && apk add $$apk &&
              gem i jekyll -v $$upd --force &&
