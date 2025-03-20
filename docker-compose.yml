@@ -1,16 +1,19 @@
 services:
   jekyll:
-    image: jekyll/jekyll:4
+    image: jvconseil/jekyll-docker:4.3.3
     environment:
-      gem: webrick
+      upd: 4.4.1
+      gem: jekyll-paginate-v2
       apk: p7zip rsync
+      npm: esbuild
     ports:
       - "4000:4000"
       - "35729:35729"
     volumes:
       - .:/srv/jekyll
     command: >
-      sh -c "npm install -g esbuild &&
-             gem install $$gem &&
-             apk add $$apk &&
+      sh -c "apk update && apk add $$apk &&
+             gem i jekyll -v $$upd --force &&
+             gem i $$gem --force &&
+             npm i -g $$npm &&
              tail -f /dev/null"
