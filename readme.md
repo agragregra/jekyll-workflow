@@ -26,7 +26,7 @@ docker-compose up -d && docker-compose exec jekyll sh
 ```
 
 ### Available arguments
-- ```./run.sh dev```: Run development server ```http://127.0.0.1:4000``` with rebuilding and LiveReload (technical: 0.0.0.0).
+- ```./run.sh dev```: Run development server ```http://127.0.0.1:4000``` with rebuilding and LiveReload (tech: 0.0.0.0).
 - ```./run.sh build```: Builds the project for production.
 - ```./run.sh deploy```: Deploys the project to the server using ```rsync```.
 - ```./run.sh backup```: Backup the project. Format: ```foldername-dd-mm-yyyy.7z```. ```dist``` and ```node_modules``` excluded.
