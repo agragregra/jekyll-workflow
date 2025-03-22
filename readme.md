@@ -21,7 +21,7 @@ chmod +x run.sh && chmod -R 777 .
 
 ### Use in Docker
 ```
-docker-compose up -d && docker-compose exec jekyll sh
+docker-compose up -d && docker-compose exec jekyll bash
 # ./run.sh argument
 ```
 
