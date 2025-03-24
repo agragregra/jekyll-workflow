@@ -6,7 +6,7 @@ set -e  # Exit on error
 # Configuration variables
 output_dir="dist/"
 deploy_server="user@server.com:path/to/public_html/"
-rsync_options="-avz --delete --include='*.htaccess'"
+rsync_options="avz --delete --delete-excluded --include=*.htaccess"
 jekyll_config="_config.yml,_config_dev.yml"
 js_source_dir="src/scripts/*.js"
 js_output_dir="src/scripts/dist/"
