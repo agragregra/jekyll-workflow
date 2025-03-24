@@ -40,6 +40,27 @@ check_deps() {
   fi
 }
 
+up() {
+  check_deps "docker-compose"
+  sudo chmod -R 777 .
+  docker-compose up -d
+}
+
+down() {
+  check_deps "docker-compose"
+  docker-compose down
+}
+
+bash() {
+  check_deps "docker-compose"
+  docker-compose exec jekyll bash
+}
+
+prune() {
+  check_deps "docker"
+  docker system prune -af --volumes
+}
+
 # Build-related functions
 build_js() {
   esbuild $js_source_dir --bundle --outdir=$js_output_dir --minify
@@ -91,17 +112,27 @@ watch() {
   jekyll build --watch --force_polling &
 }
 
+clean() {
+  check_deps "jekyll"
+  jekyll clean
+}
+
 # Handle arguments
 main() {
   case $1 in
-    "dev")   dev   ;;
+    "dev")     dev     ;;
     "build")   build   ;;
     "deploy")  deploy  ;;
     "backup")  backup  ;;
     "preview") preview ;;
     "watch")   watch   ;;
+    "clean")   clean   ;;
+    "up")      up      ;;
+    "down")    down    ;;
+    "bash")    bash    ;;
+    "prune")   prune   ;;
     *)
-      echo "Usage: $0 { dev | build | deploy | backup | preview | watch }"
+      echo "Usage: $0 { dev | build | deploy | backup | preview | watch | clean | up | down | bash | prune }"
       exit 1
       ;;
   esac
