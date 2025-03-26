@@ -75,6 +75,7 @@ dev() {
   check_deps "jekyll" "esbuild"
   jekyll serve --host 0.0.0.0 --watch --force_polling --livereload --incremental --config $jekyll_config &
   esbuild $js_source_dir --bundle --outdir=$js_output_dir --minify --watch=forever &
+  wait
 }
 
 build() {
@@ -103,6 +104,7 @@ backup() {
 preview() {
   check_deps "jekyll"
   jekyll serve --watch --host $preview_host --port $preview_port
+  wait
 }
 
 watch() {
