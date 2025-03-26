@@ -40,22 +40,20 @@ check_deps() {
   fi
 }
 
+# Docker functions
 up() {
   check_deps "docker-compose"
   sudo chmod -R 777 .
   docker-compose up -d
 }
-
 down() {
   check_deps "docker-compose"
   docker-compose down
 }
-
 bash() {
   check_deps "docker-compose"
   docker-compose exec jekyll bash
 }
-
 prune() {
   check_deps "docker"
   docker system prune -af --volumes
@@ -86,10 +84,16 @@ build() {
 
 deploy() {
   check_deps "jekyll" "esbuild" "rsync"
+  cleanup() {
+    echo "Operation interrupted. Cleanup..."
+    jekyll clean
+    exit 1
+  }
+  trap cleanup INT
   jekyll clean
   build_js
   build_jekyll
-  rsync $rsync_options $output_dir $deploy_server
+  rsync $rsync_options $output_dir $deploy_server || { echo "Deploy failed: rsync error"; exit 1; }
   jekyll clean
 }
 
@@ -104,7 +108,6 @@ backup() {
 preview() {
   check_deps "jekyll"
   jekyll serve --watch --host $preview_host --port $preview_port
-  wait
 }
 
 watch() {
@@ -112,6 +115,7 @@ watch() {
   echo "Starting esbuild watch..."
   esbuild $js_source_dir --bundle --outdir=$js_output_dir --minify --watch=forever &
   jekyll build --watch --force_polling &
+  wait
 }
 
 clean() {
