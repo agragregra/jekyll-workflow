@@ -48,7 +48,8 @@ Usage: ./run.sh { ... | up | down | bash | prune }
 ### Start argument
 Setup new project with [Starter](https://github.com/agragregra/starter).
 ```
-Usage: ./run.sh start
+1. enable_start=1 in ./run.sh
+2. Usage: ./run.sh start
 ```
 
 ### Installing dependencies (traditional)
