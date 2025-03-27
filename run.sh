@@ -146,73 +146,60 @@ main() {
 # Function to start new project with Starter
 starter_repo="https://github.com/agragregra/starter"
 starter_dir="src"
+
 start() {
   check_deps "git"
+  [ $enable_start -eq 0 ] && { echo "Command 'start' is disabled."; exit 1; }
 
-  if [ $enable_start -eq 0 ]; then
-    echo "Command 'start' is disabled."
-    exit 1
-  fi
-
-  echo "Are you sure you want to run 'start'? yes/no"
-  read -r response
+  read -rp "Are you sure you want to run 'start'? yes/no " response
   [[ "$response" != "yes" ]] && { echo "Operation canceled."; exit 0; }
 
   echo "Cloning starter project to temporary directory..."
-  tmp_dir="/tmp/starter_tmp_$$"
-  rm -rf "$tmp_dir"
+  tmp_dir=$(mktemp -d)
+  trap 'rm -rf "$tmp_dir"' EXIT
   git clone "$starter_repo" "$tmp_dir" || { echo "Failed to clone repository"; exit 1; }
-  echo "Cleaning tmp files..."
-  rm -rf "$tmp_dir/trunk" "$tmp_dir/.gitignore" "$tmp_dir/.git" "$tmp_dir/readme.md" "$starter_dir/assets/images/favicon.ico"
 
-  echo "Renaming style files..."
+  rm -rf "$tmp_dir"/{trunk,.gitignore,.git,readme.md} "$starter_dir/{assets/images/favicon.ico}"
+
   styles_dir="$tmp_dir/styles"
   if [[ -d "$styles_dir" ]]; then
     for file in "$styles_dir"/*.css; do
-      [[ -f "$file" ]] || continue
+      [ -f "$file" ] || continue
       filename=$(basename "$file" .css)
-      if [[ "$filename" == "index" ]]; then
-        mv "$file" "$styles_dir/index.scss"
-      else
-        mv "$file" "$styles_dir/_$filename.css"
-      fi
+      mv "$file" "$styles_dir/$([ "$filename" = "index" ] && echo "index.scss" || echo "_$filename.css")"
     done
   fi
 
-  echo "Updating index.scss..."
-  index_scss="$styles_dir/index.scss"
-  if [[ -f "$index_scss" ]]; then
-    sed -E -i \
-      -e 's|@import url\(["'\'']?([^"'\'']+)\.css["'\'']?\);|@use "\1";|g' \
-      -e '1s|^|---\n---\n\n|' "$index_scss" || echo "Warning: Failed to update index.scss"
-  fi
+  process_file() {
+    local file="$1"
+    [ -f "$file" ] || return
+    case "$file" in
+      *index.scss)
+        sed -E -i -e 's|@import url\(["'\'']?([^"'\'']+)\.css["'\'']?\);|@use "\1";|g' -e '1s|^|---\n---\n\n|' "$file"
+        ;;
+      *index.html)
+        sed -E -i \
+          -e '1s|^|---\n---\n{% include path.html -%}\n\n|' \
+          -e '/<!-- <base href="\/"> -->/d' \
+          -e 's|href="(styles/[^"]+)"|href="{{ path }}\1"|g' \
+          -e 's|href="(assets/[^"]+)"|href="{{ path }}\1"|g' \
+          -e 's|<meta property="og:image" content="([^"]*)"|<meta property="og:image" content="{{ path }}\1"|g' \
+          -e 's|src="(scripts/)([^"]+)"|src="{{ path }}\1dist/\2"|g' \
+          -e 's|src="([^"]+)"|src="{{ path }}\1"|g' \
+          -e 's|src="\{\{ path \}\}\{\{ path \}\}([^"]*)"|src="{{ path }}\1"|g' \
+          -e 's|<script([^>]*) defer([^>]*)>|<script\1\2 defer>|g' \
+          -e 's|<script([^>]*) type="module"([^>]*)>|<script\1\2 defer>|g' \
+          "$file"
+        ;;
+    esac
+  }
 
-  echo "Updating index.html..."
-  index_html="$tmp_dir/index.html"
-  if [[ -f "$index_html" ]]; then
-    sed -E -i \
-      -e '1s|^|---\n---\n{% include path.html -%}\n\n|' \
-      -e '/<!-- <base href="\/"> -->/d' \
-      -e 's|href="(styles/[^"]+)"|href="{{ path }}\1"|g' \
-      -e 's|href="(assets/[^"]+)"|href="{{ path }}\1"|g' \
-      -e 's|<meta property="og:image" content="([^"]*)"|<meta property="og:image" content="{{ path }}\1"|g' \
-      "$index_html" || echo "Warning: Failed to update index.html (step 1)"
-    sed -E -i \
-      -e 's|src="(scripts/)([^"]+)"|src="{{ path }}\1dist/\2"|g' \
-      -e 's|src="([^"]+)"|src="{{ path }}\1"|g' \
-      -e 's|src="\{\{ path \}\}\{\{ path \}\}([^"]*)"|src="{{ path }}\1"|g' \
-      "$index_html" || echo "Warning: Failed to update src attributes"
-    sed -E -i 's|<script([^>]*) defer([^>]*)>|<script\1\2 defer>|g' "$index_html" || echo "Warning: Failed to move defer"
-    sed -E -i 's|<script([^>]*) type="module"([^>]*)>|<script\1\2 defer>|g' "$index_html" || echo "Warning: Failed to replace type=module"
-  fi
+  process_file "$styles_dir/index.scss"
+  process_file "$tmp_dir/index.html"
 
-  echo "Merging into target directory..."
   mkdir -p "$starter_dir"
   cp -r "$tmp_dir/." "$starter_dir/" || { echo "Failed to copy files to $starter_dir"; exit 1; }
-  rm -rf "$tmp_dir"
-
   sed -i "s/^enable_start=1/enable_start=0/" "$0"
-
   echo "Project setup completed!"
 }
 
