@@ -168,7 +168,7 @@ start() {
       if [[ "$filename" == "index" ]]; then
         mv "$file" "$styles_dir/index.scss"
       else
-        mv "$file" "$styles_dir/_$filename.scss"
+        # mv "$file" "$styles_dir/_$filename.scss"
       fi
     done
   fi
