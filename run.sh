@@ -162,7 +162,7 @@ start() {
       ;;
   esac
 
-  [ "$enable_start" -eq 0 ] && { echo "Command 'start' is disabled."; exit 1; }
+  [ "$enable_start" -eq 0 ] && { echo "Command 'start' is disabled in ./run.sh"; exit 1; }
 
   read -rp "Are you sure you want to run 'start'? yes/no " response
   [[ $response != "yes" ]] && { echo "Operation canceled."; exit 0; }
