@@ -147,6 +147,18 @@ main() {
 starter_repo="https://github.com/agragregra/starter"
 starter_dir="src"
 
+case "$(uname -s)" in
+  Darwin) # macOS
+    SED="sed -E -i ''"
+    ;;
+  Linux|CYGWIN*|MINGW*|MSYS*) # Linux / Windows
+    SED="sed -E -i"
+    ;;
+  *)
+    SED="sed -E -i"
+    ;;
+esac
+
 start() {
   check_deps "git"
   [ "$enable_start" -eq 0 ] && { echo "Command 'start' is disabled."; exit 1; }
@@ -171,7 +183,7 @@ start() {
   styles_dir=$tmp_dir/styles
   if [[ -d $styles_dir ]]; then
     for file in "$styles_dir"/*.css; do
-     [ -f "$file" ] || continue
+      [ -f "$file" ] || continue
       filename=$(basename "$file" .css)
       mv "$file" "$styles_dir/$([ "$filename" = "index" ] && echo "index.scss" || echo "_$filename.css")"
     done
@@ -182,10 +194,13 @@ start() {
     [ -f "$file" ] || return
     case $file in
       *index.scss)
-        sed -E -i -e 's|@import url\(["'\'']?([^"'\'']+)\.css["'\'']?\);|@use "\1";|g' -e '1s|^|---\n---\n\n|' "$file"
+        $SED \
+          -e '1s|^|---\n---\n\n|' \
+          -e 's|@import url\(["'\'']?([^"'\'']+)\.css["'\'']?\);|@use "\1";|g' \
+          "$file"
         ;;
       *index.html)
-        sed -E -i \
+        $SED \
           -e '1s|^|---\n---\n{% include path.html -%}\n\n|' \
           -e '/<!-- <base href="\/"> -->/d' \
           -e 's|href="(styles/[^"]+)"|href="{{ path }}\1?v={{ site.v }}"|g' \
@@ -206,7 +221,8 @@ start() {
 
   mkdir -p $starter_dir
   cp -r "$tmp_dir"/* "$starter_dir"/ || { echo "Failed to copy files to $starter_dir"; exit 1; }
-  sed -i "s/^enable_start=[0-1]/enable_start=0/" "$0"
+
+  $SED "s/^enable_start=[0-1]/enable_start=0/" "$0"
   echo "Project setup completed!"
 }
 
