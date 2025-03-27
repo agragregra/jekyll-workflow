@@ -3,11 +3,14 @@
 Ready-to-use workflow for quickly starting with Jekyll, Sass and esbuild. It includes configurations for development, local network access, build, and deployment project.
 
 ```
-git clone https://github.com/agragregra/jw .; rm -rf trunk .git
+git clone https://github.com/agragregra/jw . && rm -rf trunk .git && chmod +x run.sh
 ```
 
+## Troubleshooting
 ```
-chmod +x run.sh && chmod -R 777 .
+chmod -R 777 .
+linux: sed -i 's/\r$//' run.sh
+macos: sed -i '' 's/\r$//' run.sh
 ```
 
 ## Features
