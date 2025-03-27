@@ -71,6 +71,7 @@ build_jekyll() {
 # Main commands
 dev() {
   check_deps "jekyll" "esbuild"
+  trap clean INT
   jekyll serve --host 0.0.0.0 --watch --force_polling --livereload --incremental --config $jekyll_config &
   esbuild $js_source_dir --bundle --outdir=$js_output_dir --minify --watch
   wait
@@ -84,12 +85,7 @@ build() {
 
 deploy() {
   check_deps "jekyll" "esbuild" "rsync"
-  cleanup() {
-    echo "Operation interrupted. Cleanup..."
-    jekyll clean
-    exit 1
-  }
-  trap cleanup INT
+  trap clean INT
   jekyll clean
   build_js
   build_jekyll
@@ -107,11 +103,13 @@ backup() {
 
 preview() {
   check_deps "jekyll"
+  trap clean INT
   jekyll serve --watch --host $preview_host --port $preview_port
 }
 
 watch() {
   check_deps "esbuild" "jekyll"
+  trap clean INT
   jekyll build --watch --force_polling &
   esbuild $js_source_dir --bundle --outdir=$js_output_dir --minify --watch
   wait
