@@ -73,6 +73,7 @@ dev() {
   check_deps "jekyll" "esbuild"
   jekyll serve --host 0.0.0.0 --watch --force_polling --livereload --incremental --config $jekyll_config &
   esbuild $js_source_dir --bundle --outdir=$js_output_dir --minify --watch=forever &
+  trap 'kill $(jobs -p)' INT TERM
   wait
 }
 
@@ -115,6 +116,7 @@ watch() {
   echo "Starting esbuild watch..."
   esbuild $js_source_dir --bundle --outdir=$js_output_dir --minify --watch=forever &
   jekyll build --watch --force_polling &
+  trap 'kill $(jobs -p)' INT TERM
   wait
 }
 
