@@ -143,10 +143,16 @@ main() {
 }
 
 # Function to start new project with Starter
+starter_initialized = 0
 starter_repo="https://github.com/agragregra/starter"
 starter_dir="src"
 start() {
   check_deps "git"
+
+  if [ $starter_initialized -eq 1 ]; then
+    echo "Error: Project has already been initialized. Command 'start' can only be run once."
+    exit 1
+  fi
 
   echo "Are you sure you want to run 'start'? yes/no"
   read -r response
