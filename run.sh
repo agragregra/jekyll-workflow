@@ -144,14 +144,13 @@ main() {
 }
 
 # Function to start new project with Starter
-enable_start = 1
 starter_repo="https://github.com/agragregra/starter"
 starter_dir="src"
 start() {
   check_deps "git"
 
-  if [ $starter_initialized -eq 0 ]; then
-    echo "Error: Project has already been initialized. Command 'start' can only be run once."
+  if [ $enable_start -eq 0 ]; then
+    echo "Command 'start' is disabled."
     exit 1
   fi
 
