@@ -14,7 +14,6 @@ preview_host="192.168.1.126"
 preview_port="3000"
 backup_compression_options="-t7z -mx=9 -m0=LZMA2 -mmt=on"
 backup_date_format="+%d-%m-%Y"
-enable_start=0
 
 # Function to get directory name
 get_dir_name() {
@@ -23,12 +22,12 @@ get_dir_name() {
 
 # Function to get current date (cross-platform)
 get_current_date() {
-  date $backup_date_format
+  date "$backup_date_format"
 }
 
 # Function to check dependencies
 check_deps() {
-  local deps=($@)
+  local deps=("$@")
   local missing=()
 
   for dep in "${deps[@]}"; do
@@ -36,7 +35,7 @@ check_deps() {
   done
 
   if [ ${#missing[@]} -ne 0 ]; then
-    echo "${missing[*]} is not installed"
+    echo "Missing dependencies: ${missing[*]}"
     exit 1
   fi
 }
@@ -62,7 +61,7 @@ prune() {
 
 # Build-related functions
 build_js() {
-  esbuild $js_source_dir --bundle --outdir=$js_output_dir --minify
+  esbuild "$js_source_dir" --bundle --outdir="$js_output_dir" --minify
 }
 
 build_jekyll() {
@@ -73,8 +72,8 @@ build_jekyll() {
 dev() {
   check_deps "jekyll" "esbuild"
   trap clean INT
-  jekyll serve --host 0.0.0.0 --watch --force_polling --livereload --incremental --config $jekyll_config &
-  esbuild $js_source_dir --bundle --outdir=$js_output_dir --minify --watch
+  jekyll serve --host 0.0.0.0 --watch --force_polling --livereload --incremental --config "$jekyll_config" &
+  esbuild "$js_source_dir" --bundle --outdir="$js_output_dir" --minify --watch
   wait
 }
 
@@ -90,7 +89,7 @@ deploy() {
   jekyll clean
   build_js
   build_jekyll
-  rsync $rsync_options $output_dir $deploy_server || { echo "Deploy failed: rsync error"; exit 1; }
+  rsync $rsync_options "$output_dir" "$deploy_server" || { echo "Deploy failed: rsync error"; exit 1; }
   jekyll clean
 }
 
@@ -99,20 +98,20 @@ backup() {
   jekyll clean
   local dir_name=$(get_dir_name)
   local current_date=$(get_current_date)
-  7z a $backup_compression_options -x!$dir_name/dist -x!$dir_name/node_modules ./$dir_name-$current_date.7z $(pwd)
+  7z a $backup_compression_options -x!"$dir_name/dist" -x!"$dir_name/node_modules" "./$dir_name-$current_date.7z" "$(pwd)"
 }
 
 preview() {
   check_deps "jekyll"
   trap clean INT
-  jekyll serve --watch --host $preview_host --port $preview_port
+  jekyll serve --watch --host "$preview_host" --port "$preview_port"
 }
 
 watch() {
   check_deps "esbuild" "jekyll"
   trap clean INT
   jekyll build --watch --force_polling &
-  esbuild $js_source_dir --bundle --outdir=$js_output_dir --minify --watch
+  esbuild "$js_source_dir" --bundle --outdir="$js_output_dir" --minify --watch
   wait
 }
 
@@ -149,10 +148,10 @@ starter_dir="src"
 
 start() {
   check_deps "git"
-  [ $enable_start -eq 0 ] && { echo "Command 'start' is disabled."; exit 1; }
+  [ "$enable_start" -eq 0 ] && { echo "Command 'start' is disabled."; exit 1; }
 
   read -rp "Are you sure you want to run 'start'? yes/no " response
-  [[ "$response" != "yes" ]] && { echo "Operation canceled."; exit 0; }
+  [[ $response != "yes" ]] && { echo "Operation canceled."; exit 0; }
 
   echo "Cloning starter project to temporary directory..."
   tmp_dir=$(mktemp -d)
@@ -160,27 +159,27 @@ start() {
   git clone "$starter_repo" "$tmp_dir" || { echo "Failed to clone repository"; exit 1; }
 
   files_to_remove=(
-    $tmp_dir/trunk
-    $tmp_dir/.gitignore
-    $tmp_dir/.git
-    $tmp_dir/readme.md
-    $starter_dir/assets/images/favicon.ico
+    "$tmp_dir/trunk"
+    "$tmp_dir/.gitignore"
+    "$tmp_dir/.git"
+    "$tmp_dir/readme.md"
+    "$starter_dir/assets/images/favicon.ico"
   )
   rm -rf "${files_to_remove[@]}"
 
-  styles_dir="$tmp_dir/styles"
-  if [[ -d "$styles_dir" ]]; then
+  styles_dir=$tmp_dir/styles
+  if [[ -d $styles_dir ]]; then
     for file in "$styles_dir"/*.css; do
-      [ -f "$file" ] || continue
+     [ -f "$file" ] || continue
       filename=$(basename "$file" .css)
       mv "$file" "$styles_dir/$([ "$filename" = "index" ] && echo "index.scss" || echo "_$filename.css")"
     done
   fi
 
   process_file() {
-    local file="$1"
+    local file=$1
     [ -f "$file" ] || return
-    case "$file" in
+    case $file in
       *index.scss)
         sed -E -i -e 's|@import url\(["'\'']?([^"'\'']+)\.css["'\'']?\);|@use "\1";|g' -e '1s|^|---\n---\n\n|' "$file"
         ;;
@@ -204,9 +203,9 @@ start() {
   process_file "$styles_dir/index.scss"
   process_file "$tmp_dir/index.html"
 
-  mkdir -p "$starter_dir"
-  cp -r "$tmp_dir/." "$starter_dir/" || { echo "Failed to copy files to $starter_dir"; exit 1; }
-  sed -i "s/^enable_start=1/enable_start=0/" "$0"
+  mkdir -p $starter_dir
+  cp -r "$tmp_dir"/* "$starter_dir"/ || { echo "Failed to copy files to $starter_dir"; exit 1; }
+  sed -i "s/^enable_start=[0-1]/enable_start=0/" "$0"
   echo "Project setup completed!"
 }
 
