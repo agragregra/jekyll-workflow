@@ -64,7 +64,6 @@ prune() {
 build_js() {
   esbuild "$js_source_dir" --bundle --outdir="$js_output_dir" --minify
 }
-
 build_jekyll() {
   jekyll build
 }
