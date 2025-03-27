@@ -7,4 +7,5 @@ exclude: [
   'package.json',
   'readme.md',
   'scripts/*',
+  'vendor/*',
 ]
