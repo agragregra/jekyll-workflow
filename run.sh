@@ -159,7 +159,14 @@ start() {
   trap 'rm -rf "$tmp_dir"' EXIT
   git clone "$starter_repo" "$tmp_dir" || { echo "Failed to clone repository"; exit 1; }
 
-  rm -rf "$tmp_dir"/{trunk,.gitignore,.git,readme.md} "$starter_dir"/{assets/images/favicon.ico}
+  files_to_remove=(
+    $tmp_dir/trunk
+    $tmp_dir/.gitignore
+    $tmp_dir/.git
+    $tmp_dir/readme.md
+    $starter_dir/assets/images/favicon.ico
+  )
+  rm -rf "${files_to_remove[@]}"
 
   styles_dir="$tmp_dir/styles"
   if [[ -d "$styles_dir" ]]; then
