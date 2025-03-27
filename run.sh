@@ -14,6 +14,7 @@ preview_host="192.168.1.126"
 preview_port="3000"
 backup_compression_options="-t7z -mx=9 -m0=LZMA2 -mmt=on"
 backup_date_format="+%d-%m-%Y"
+enable_start=0
 
 # Function to get directory name
 get_dir_name() {
@@ -143,13 +144,13 @@ main() {
 }
 
 # Function to start new project with Starter
-starter_initialized = 0
+enable_start = 1
 starter_repo="https://github.com/agragregra/starter"
 starter_dir="src"
 start() {
   check_deps "git"
 
-  if [ $starter_initialized -eq 1 ]; then
+  if [ $starter_initialized -eq 0 ]; then
     echo "Error: Project has already been initialized. Command 'start' can only be run once."
     exit 1
   fi
