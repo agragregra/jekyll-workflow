@@ -211,6 +211,8 @@ start() {
   cp -r "$tmp_dir/." "$starter_dir/" || { echo "Failed to copy files to $starter_dir"; exit 1; }
   rm -rf "$tmp_dir"
 
+  sed -i "s/^enable_start=1/enable_start=0/" "$0"
+
   echo "Project setup completed!"
 }
 
