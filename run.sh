@@ -188,10 +188,10 @@ start() {
         sed -E -i \
           -e '1s|^|---\n---\n{% include path.html -%}\n\n|' \
           -e '/<!-- <base href="\/"> -->/d' \
-          -e 's|href="(styles/[^"]+)"|href="{{ path }}\1"|g' \
+          -e 's|href="(styles/[^"]+)"|href="{{ path }}\1?v={{ site.v }}"|g' \
           -e 's|href="(assets/[^"]+)"|href="{{ path }}\1"|g' \
           -e 's|<meta property="og:image" content="([^"]*)"|<meta property="og:image" content="{{ path }}\1"|g' \
-          -e 's|src="(scripts/)([^"]+)"|src="{{ path }}\1dist/\2"|g' \
+          -e 's|src="(scripts/)([^"]+)"|src="{{ path }}\1dist/\2?v={{ site.v }}"|g' \
           -e 's|src="([^"]+)"|src="{{ path }}\1"|g' \
           -e 's|src="\{\{ path \}\}\{\{ path \}\}([^"]*)"|src="{{ path }}\1"|g' \
           -e 's|<script([^>]*) defer([^>]*)>|<script\1\2 defer>|g' \
