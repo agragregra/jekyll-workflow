@@ -144,23 +144,24 @@ main() {
 }
 
 # Function to start new project with Starter
-starter_repo="https://github.com/agragregra/starter"
-starter_dir="src"
-
-case "$(uname -s)" in
-  Darwin) # macOS
-    SED="sed -E -i ''"
-    ;;
-  Linux|CYGWIN*|MINGW*|MSYS*) # Linux / Windows
-    SED="sed -E -i"
-    ;;
-  *)
-    SED="sed -E -i"
-    ;;
-esac
-
 start() {
   check_deps "git"
+
+  starter_repo="https://github.com/agragregra/starter"
+  starter_dir="src"
+
+  case "$(uname -s)" in
+    Darwin) # macOS
+      SED="sed -E -i ''"
+      ;;
+    Linux|CYGWIN*|MINGW*|MSYS*) # Linux / Windows
+      SED="sed -E -i"
+      ;;
+    *)
+      SED="sed -E -i"
+      ;;
+  esac
+
   [ "$enable_start" -eq 0 ] && { echo "Command 'start' is disabled."; exit 1; }
 
   read -rp "Are you sure you want to run 'start'? yes/no " response
