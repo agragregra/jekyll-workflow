@@ -4,8 +4,10 @@ Ready-to-use workflow for quickly starting with Jekyll, Sass and esbuild. It inc
 
 ```
 git clone https://github.com/agragregra/jw .; rm -rf trunk .git
+```
+
+```
 chmod +x run.sh && chmod -R 777 .
-sed -i 's/\r$//' run.sh
 ```
 
 ## Features
