@@ -159,7 +159,7 @@ start() {
   trap 'rm -rf "$tmp_dir"' EXIT
   git clone "$starter_repo" "$tmp_dir" || { echo "Failed to clone repository"; exit 1; }
 
-  rm -rf "$tmp_dir"/{trunk,.gitignore,.git,readme.md} "$starter_dir/{assets/images/favicon.ico}"
+  rm -rf "$tmp_dir"/{trunk,.gitignore,.git,readme.md} "$starter_dir"/{assets/images/favicon.ico}
 
   styles_dir="$tmp_dir/styles"
   if [[ -d "$styles_dir" ]]; then
