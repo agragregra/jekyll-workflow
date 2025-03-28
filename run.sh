@@ -31,7 +31,7 @@ run_backup() {
   check_deps "7z"
   jekyll clean
   local dir_name="$(basename "$(pwd)")"
-  local current_date=$(date +%Y-%m-%d)
+  local current_date=$(date +%d-%m-%Y)
   7z a $compression_options -x!"$dir_name/dist" -x!"$dir_name/node_modules" "./$dir_name-$current_date.7z" "$(pwd)"
 }
 run_deploy() {
