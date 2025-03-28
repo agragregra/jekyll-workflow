@@ -192,9 +192,9 @@ run_start() {
 
   mkdir -p $starter_dir
   cp -r "$tmp_dir"/* "$starter_dir"/ || { echo "Failed to copy files to $starter_dir"; exit 1; }
-  find "$tmp_dir" "$starter_dir" . -type f -name "*''" -delete
 
   $SED "s/^enable_start=[0-1]/enable_start=0/" "$0"
+  find "$tmp_dir" "$starter_dir" . -type f -name "*''" -delete
   echo "Project setup completed!"
 }
 
