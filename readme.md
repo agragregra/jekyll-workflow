@@ -77,7 +77,7 @@ sudo apt install p7zip-full
 # for mac
 brew install p7zip
 # for git bash
-mkdir -p ~/bin && curl -o ~/bin/7z.exe https://www.7-zip.org/a/7zr.exe
+mkdir -p ~/bin && curl -o ~/bin/7z.exe https://raw.githubusercontent.com/agragregra/7zr/main/7zr.exe
 ```
 
 5. Install rsync for Git Bash (deploy)
