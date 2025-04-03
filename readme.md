@@ -82,7 +82,7 @@ mkdir -p ~/bin && curl -o ~/bin/7z.exe https://raw.githubusercontent.com/webdesi
 
 5. Install rsync for Git Bash (deploy)
 ```
-mkdir -p ~/bin && curl -o ~/bin/rsync.exe https://raw.githubusercontent.com/webdesign-masteru/rw/main/rsync.exe
+mkdir -p ~/bin && curl -o ~/bin/rsync.exe https://raw.githubusercontent.com/webdesign-masteru/rsync-windows/main/rsync.exe
 ```
 > For macOS, Linux, etc., no installation is required.
 
