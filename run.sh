@@ -117,7 +117,7 @@ check_deps() {
 run_start() {
   check_deps "git"
 
-  starter_repo="https://github.com/agragregra/starter"
+  starter_repo="https://github.com/webdesign-masteru/starter"
   starter_dir="src"
 
   case "$(uname -s)" in
