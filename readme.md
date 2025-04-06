@@ -45,13 +45,6 @@ docker-compose up -d && docker-compose exec jekyll bash
 Usage: ./run.sh { ... | up | down | bash | prune }
 ```
 
-### Start argument
-Setup new project with [Starter](https://github.com/webdesign-masteru/starter).
-```
-1. enable_start=1 in ./run.sh
-2. Usage: ./run.sh start
-```
-
 ### Installing dependencies (traditional)
 
 1. Make sure you have the following installed:

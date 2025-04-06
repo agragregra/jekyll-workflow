@@ -14,7 +14,7 @@ title: Hello World!
   <title>Document</title>
   <meta name="description" content="Jekyll Workflow">
 
-  <link rel="icon" href="{{ path }}assets/images/favicon.ico">
+  <link rel="icon" href="{{ site.url | absolute_url }}/favicon.ico?v={{ site.v }}" type="image/x-icon">
   <meta property="og:image" content="{{ path }}public/images/preview.jpg">
 
   <link rel="stylesheet" href="{{ path }}styles/index.css?v={{ site.v }}">

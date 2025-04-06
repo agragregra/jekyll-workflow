@@ -1,0 +1,13 @@
+---
+layout: null
+---
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for post in site.posts %}{% unless post.published == false %}{% unless post.closed == true %}
+  <url><loc>{{ post.url | absolute_url }}</loc></url>
+{%- endunless %}{% endunless %}{% endfor %}
+{%- for page in site.pages %}
+  <url><loc>{{ page.url | absolute_url | remove: "index.html" }}</loc></url>
+{%- endfor %}
+</urlset>

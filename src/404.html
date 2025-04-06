@@ -14,7 +14,7 @@ title: 404
   <title>404</title>
   <meta name="description" content="404 Not Found">
 
-  <link rel="icon" href="{{ path }}assets/images/favicon.ico">
+  <link rel="icon" href="{{ site.url | absolute_url }}/favicon.ico?v={{ site.v }}" type="image/x-icon">
 
   <link rel="stylesheet" href="{{ path }}styles/index.css?v={{ site.v }}">
   <script src="{{ path }}scripts/dist/main.js?v={{ site.v }}" defer></script>
