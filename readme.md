@@ -3,7 +3,7 @@
 Ready-to-use workflow for quickly starting with Jekyll, Sass and esbuild. It includes configurations for development, local network access, build, and deployment project.
 
 ```
-git clone https://github.com/webdesign-masteru/jekyll-workflow . && rm -rf trunk .git .gitattributes && chmod +x run.sh
+git clone https://github.com/agragregra/jekyll-workflow . && rm -rf trunk .git .gitattributes && chmod +x run.sh
 ```
 
 ## Troubleshooting
@@ -70,12 +70,12 @@ sudo apt install p7zip-full
 # for mac
 brew install p7zip
 # for git bash
-mkdir -p ~/bin && curl -o ~/bin/7z.exe https://raw.githubusercontent.com/webdesign-masteru/7zr/main/7zr.exe
+mkdir -p ~/bin && curl -o ~/bin/7z.exe https://raw.githubusercontent.com/agragregra/7zr/main/7zr.exe
 ```
 
 5. Install rsync for Git Bash (deploy)
 ```
-mkdir -p ~/bin && curl -o ~/bin/rsync.exe https://raw.githubusercontent.com/webdesign-masteru/rsync-windows/main/rsync.exe
+mkdir -p ~/bin && curl -o ~/bin/rsync.exe https://raw.githubusercontent.com/agragregra/rsync-windows/main/rsync.exe
 ```
 > For macOS, Linux, etc., no installation is required.
 
