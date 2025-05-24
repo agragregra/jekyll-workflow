@@ -3,14 +3,7 @@
 Ready-to-use workflow for quickly starting with Jekyll, Sass and esbuild. It includes configurations for development, local network access, build, and deployment project.
 
 ```
-git clone https://github.com/agragregra/jekyll-workflow . && rm -rf trunk .git .gitattributes && chmod +x run.sh
-```
-
-## Troubleshooting
-```
-chmod -R 777 .
-linux: sed -i 's/\r$//' run.sh
-macos: sed -i '' 's/\r$//' run.sh
+git clone https://github.com/agragregra/jekyll-workflow . && rm -rf trunk .git readme.md && chmod +x run.sh
 ```
 
 ## Features
@@ -80,5 +73,12 @@ mkdir -p ~/bin && curl -o ~/bin/rsync.exe https://raw.githubusercontent.com/agra
 > For macOS, Linux, etc., no installation is required.
 
 ---
+
+## Troubleshooting
+```
+chmod -R 777 .
+linux: sed -i 's/\r$//' run.sh
+macos: sed -i '' 's/\r$//' run.sh
+```
 
 > Note: Disable ad blocker to improve performance.
